@@ -44,12 +44,15 @@ async function signup(req, res) {
       provider,} = req.body;
       var existingUser =null
       try {
-              existingUser = await logginDetails.findOne({'email':x.email}) ;
+              existingUser = await logginDetails.findOne({'email':email}) ;
           } catch (error) {
             console.error(error);
           }
       if (existingUser) {
-      // res.redirect('/auth/login')
+        const token = jwt.sign(existingUser.toJSON(),config.jwtSecret,
+          { expiresIn: "1h" }
+        );
+        existingUser.idToken = token;
       return res.status(200).json({status:200, message: 'Username already exists' ,data:existingUser});
     }else{
       const newUser = new logginDetails({
@@ -63,10 +66,13 @@ async function signup(req, res) {
       });
       // // Save the new user
       await newUser.save().then(e=>{
+        const token = jwt.sign(x,config.jwtSecret,{ expiresIn: "1h" });
+        e.idToken = token;
+        console.log(e);
         res.status(200).json({status:200, message: 'Signup successful' ,data:e});
       }).catch(error=>{
         console.log(error);
-        res.status(404).json({status:404, message: 'not Signup successful', errorStack:error  });
+        res.status(404).json({status:404, message: 'not Signup successful', errorStack:error ,data:x });
       })
     }
     //  // Create a new user in the database using Mongoose

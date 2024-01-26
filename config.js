@@ -1,8 +1,7 @@
 
 module.exports = {
 
-// const uri = 
-// config/keys.js
+  jwtSecret:"demoCode",// config/keys.js
   google: {
     clientID: '127895542254-m231c2he3niqcssj7he8j4cqql9n9gg8.apps.googleusercontent.com',
     clientSecret: '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',

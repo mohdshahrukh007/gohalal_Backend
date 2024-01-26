@@ -6,6 +6,8 @@ const userSchema = new Schema({
   
   idToken: {
       type: String,
+      unique: false,
+
     },
     name: {
       type: String,
@@ -30,8 +32,6 @@ const userSchema = new Schema({
       required: false,
     },
   
-  // Add other relevant user data fields here
-  // Example: dateOfBirth, address, phone, etc.
 });
 
 const User = mongoose.model('UserDetails',   userSchema);
