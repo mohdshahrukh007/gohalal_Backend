@@ -2,12 +2,10 @@
 const tripData = require('../models/createTrip');
     async function creatTrip(req, res) {
         try {
-
             const newUser = new tripData(req.body);
             // // Save the new user
             await newUser.save().then(e=>{
-                console.log(e);
-              res.status(200).json({status:200, message: 'trip Created' ,data:req.body});
+              res.status(200).json({status:200, message: 'trip Created' ,data:e});
             }).catch(error=>{
               res.status(404).json({status:404, message: 'not Signup successful' });
             })

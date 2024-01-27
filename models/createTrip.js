@@ -9,6 +9,7 @@ const tripSchema = new mongoose.Schema({
     tripName: { type: String },
     description: { type: String },
     image: { type: String },
+    createdBy: { type: String },
 });
 
 const Trip = mongoose.model('Trip', tripSchema);
